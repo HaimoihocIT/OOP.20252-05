@@ -1,6 +1,7 @@
 package game;
 
 import game.graphics.Screen;
+import game.graphics.text.BitmapFont;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.input.Tool;
@@ -10,6 +11,7 @@ public class GameContext {
     public Screen screen;
     public StateHandler handler;
     public Mouse mouse;
+    public BitmapFont guiFont;
     public Keyboard keyboard;
     public int scale = DEFAULT_SCALE;
     public boolean scaleChanged = false;
