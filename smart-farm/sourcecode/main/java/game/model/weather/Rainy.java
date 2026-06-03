@@ -17,11 +17,11 @@ public class Rainy extends BaseWeather {
 
     @Override
     public Sprite getGrassSprite(int baseSeed) {
-        // return the suitable Sprite
+        return null;
     }
 
     @Override
     public Sprite getFarmlandSprite(boolean u, boolean d, boolean l, boolean r, int moisture) {
-        // return the suitable Spite
+        return null;
     }
 }
