@@ -1,13 +1,24 @@
 package game.model;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import game.model.crop.Crop;
+import game.model.weather.Drought;
+import game.model.weather.Rainy;
 import game.model.weather.Sunny;
 import game.model.weather.Weather;
-
 
 public class FarmGrid {
     private final int rows;
     private final int cols;
     private final FarmCell[][] cells;
     private Weather currentWeather = new Sunny();
+    private final Random random = new Random();
+    private int daysSinceLastPests = 0;
+    private int pestSpawnThreshold = 2 + random.nextInt(2); // Randomly 2 or 3
     private char[][] tileMap;
 
     public FarmGrid(int rows, int cols) {
@@ -16,6 +27,7 @@ public class FarmGrid {
         this.cells = new FarmCell[rows][cols];
         this.tileMap = new char[rows][cols];
         loadMap("/maps/farm_map.txt");
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 cells[i][j] = new FarmCell();
@@ -60,18 +72,74 @@ public class FarmGrid {
         return null;
     }
 
-    public Weather getCurrentWeather() {
+    public void advanceDay() {
+        // create the weather follows the randon technique
+        double weatherRoll = random.nextDouble();
+        if (weatherRoll < 0.2)      currentWeather = new Rainy();
+        else if (weatherRoll < 0.4) currentWeather = new Drought();
+        else                        currentWeather = new Sunny();
+
+        daysSinceLastPests++;
+        boolean spawnPests = false;
+        if (daysSinceLastPests >= pestSpawnThreshold) {
+            spawnPests = true;
+            daysSinceLastPests = 0;
+            pestSpawnThreshold = 2 + random.nextInt(2);
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                FarmCell cell = cells[i][j];
+                currentWeather.apply(cell);
+
+                Crop crop = cell.getCurrentCrop();
+                if (crop != null) {
+                    crop.consumeResources(cell, currentWeather);
+                    if (!cell.hasPests()) {
+                        crop.grow();
+                    }
+                    else{
+                        crop.pestsAttack();
+                    }
+                    crop.checkSurvival();
+                }
+            }
+        }
+
+        // create pests and distribute them follows the random technique
+        if (spawnPests) {
+            List<FarmCell> candidates = new ArrayList<>();
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (getTileType(i, j) == 'S' && !cells[i][j].hasPests()) {
+                        candidates.add(cells[i][j]);
+                    }
+                }
+            }
+            if (!candidates.isEmpty()) {
+                Collections.shuffle(candidates);
+                int numToSpawn = Math.min(4 + random.nextInt(3), candidates.size()); 
+                for (int i = 0; i < numToSpawn; i++) {
+                    candidates.get(i).setPests(true);
+                }
+            }
+        }
+    }
+
+    public Weather getCurrentWeather() { 
         return currentWeather; 
     }
 
-    public void setWeather(Weather weather) {
+    public void setWeather(Weather weather) { 
         this.currentWeather = weather; 
     }
-    public int getRows() {
+
+    public int getRows() { 
         return rows; 
     }
+
     public int getCols() { 
         return cols; 
     }
-    
+
 }
