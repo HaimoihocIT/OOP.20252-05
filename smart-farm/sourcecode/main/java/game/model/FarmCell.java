@@ -1,25 +1,29 @@
 package game.model;
-
+import game.model.crop.Crop;
 
 public class FarmCell {
     private int moistureLevel;
     private int nutrientLevel;
     private boolean hasPests;
+    private Crop currentCrop;
 
     public FarmCell() {
         this.moistureLevel = 0;
         this.nutrientLevel = 0;
         this.hasPests = false;
+        this.currentCrop = null;
     }
 
     public void waterCell() {
         this.moistureLevel += 10;
-        if (moistureLevel > 100) moistureLevel = 100;
+        if (moistureLevel > 100) 
+            moistureLevel = 100;
     }
 
     public void fertilizeCell() {
         this.nutrientLevel += 20;
-        if (nutrientLevel > 100) nutrientLevel = 100;
+        if (nutrientLevel > 100) 
+            nutrientLevel = 100;
     }
 
     public void clearPests() {
@@ -32,6 +36,10 @@ public class FarmCell {
 
     public void setPests(boolean hasPests) {
         this.hasPests = hasPests;
+    }
+
+    public boolean isAvailable() {
+        return currentCrop == null;
     }
 
     public int getMoistureLevel() {
@@ -54,4 +62,17 @@ public class FarmCell {
         this.moistureLevel = moistureLevel;
     }
 
+    public Crop getCurrentCrop() {
+        return currentCrop;
+    }
+
+    public void plantCrop(Crop crop) {
+        if (isAvailable()) {
+            this.currentCrop = crop;
+        }
+    }
+
+    public void removeCrop() {
+        this.currentCrop = null;
+    }
 }
