@@ -8,6 +8,7 @@ public class GameConstants {
     public static final int MIN_SCALE = 1;
     public static final int MAX_SCALE = 6;
 
+    public static final int SEED_COUNT = 10;
 
     public static final int STARTING_DAY = 1;
     public static final int STARTING_BALANCE = 100;
