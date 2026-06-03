@@ -10,6 +10,9 @@ public class GameConstants {
 
     public static final int SEED_COUNT = 10;
 
+    public static final int GRID_ROWS = 25;
+    public static final int GRID_COLS = 14;
+
     public static final int STARTING_DAY = 1;
     public static final int STARTING_BALANCE = 100;
 }

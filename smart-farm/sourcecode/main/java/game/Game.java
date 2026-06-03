@@ -7,6 +7,15 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import game.controller.GameController;
+import game.controller.HelpController;
+import game.controller.StateUpdater;
+import game.graphics.Screen;
+import game.graphics.text.BitmapFont;
+import game.input.InputManager;
+import game.model.FarmGrid;
+import static game.GameConstants.*;
+
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
 
@@ -14,15 +23,36 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
 
     private final BufferedImage image =
-        new BufferedImage(400, 225, BufferedImage.TYPE_INT_RGB);
+        new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     private final int[] pixels =
         ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
     public int numUpdates = 0;
     public int numFrames = 0;
 
+    private GameContext ctx;
+    private InputManager inputManager;
+
+    private final StateUpdater gameUpdater  = new GameController();
+    private final StateUpdater helpUpdater  = new HelpController();
+
     public Game() {
-        setPreferredSize(new Dimension(800, 450));
+        ctx = new GameContext();
+        inputManager = new InputManager();
+
+        setPreferredSize(new Dimension(SCREEN_WIDTH * DEFAULT_SCALE, SCREEN_HEIGHT * DEFAULT_SCALE));
+
+        ctx.screen  = new Screen(SCREEN_WIDTH, SCREEN_HEIGHT);
+        ctx.handler = new StateHandler();
+        ctx.mouse   = new Mouse();
+        ctx.keyboard = new Keyboard();
+        ctx.grid    = new FarmGrid(GRID_ROWS, GRID_COLS);
+        ctx.guiFont = new BitmapFont("/font maps/monogram-bitmap.json");
+
+        addMouseListener(ctx.mouse);
+        addMouseMotionListener(ctx.mouse);
+        addKeyListener(ctx.keyboard);
+        setFocusTraversalKeysEnabled(false);
     }
 
     public synchronized void start() {
@@ -61,13 +91,29 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void update() {
-        // Do sth
+        ctx.keyboard.update();
+        ctx.tickCounter++;
+
+        switch (ctx.handler.getState()) {
+            case GAME     -> gameUpdater.update(ctx, inputManager);
+            case HELP     -> helpUpdater.update(ctx, inputManager);
+            default       -> {}
+        }
+
+        if (ctx.scaleChanged) {
+            ctx.scaleChanged = false;
+            if (ctx.scaleChangedCallback != null) ctx.scaleChangedCallback.run();
+        }
     }
 
     public void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) { createBufferStrategy(3); return; }
-        // Do sth
+
+        ctx.screen.clear();
+
+        for (int i = 0; i < pixels.length; i++) pixels[i] = ctx.screen.pixels[i];
+
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
