@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class CropData {
-    private final String name;
-    private final int cost;
-    private final int growthDays;
-    private final int dailyWaterRequirement;
-    private final int minMoistureThreshold;
-    private final int maxMoistureThreshold;
-    private final int dailyNutrientRequirement;
-    private final int harvestValue;
-    private final Sprite matureSprite;
+    public final String name;
+    public final int cost;
+    public final int growthDays;
+    public final int dailyWaterRequirement;
+    public final int minMoistureThreshold;
+    public final int maxMoistureThreshold;
+    public final int dailyNutrientRequirement;
+    public final int harvestValue;
+    public final Sprite matureSprite;
 
     private final Supplier<Crop> factory;
 
@@ -48,7 +48,7 @@ public class CropData {
         return factory.get();
     }
 
-    public List<CropData> getAllCrops() {
+    public static List<CropData> getAllCrops() {
         return ALL_CROPS;
     }
 }
