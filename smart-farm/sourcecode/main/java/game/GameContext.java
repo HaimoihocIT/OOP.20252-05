@@ -12,7 +12,6 @@ public class GameContext {
     public Screen screen;
     public StateHandler handler;
     public Mouse mouse;
-    public BitmapFont guiFont;
     public Keyboard keyboard;
     public FarmGrid grid;
     public BitmapFont guiFont;
