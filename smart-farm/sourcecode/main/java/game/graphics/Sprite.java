@@ -17,10 +17,10 @@ public class Sprite {
 
 	
 
-	/**
-	 * Extracts a square sprite from a SpriteSheet.
-	 * Converts tile-grid coordinates (x, y) to absolute pixel coordinates.
-	 */
+	/*
+	Extracts a square sprite from a SpriteSheet.
+	Converts tile-grid coordinates (x, y) to absolute pixel coordinates.
+	*/
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.SIZE = size; 
 		this.width = size;

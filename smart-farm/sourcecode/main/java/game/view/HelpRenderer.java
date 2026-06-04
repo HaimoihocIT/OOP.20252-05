@@ -5,7 +5,7 @@ import game.graphics.Sprite;
 
 import static game.GameConstants.*;
 
-// Renders the help / how-to-play screen.
+// Renders the help 
 public class HelpRenderer implements StateRenderer {
 
     @Override
