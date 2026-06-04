@@ -13,7 +13,12 @@ import game.controller.StateUpdater;
 import game.graphics.Screen;
 import game.graphics.text.BitmapFont;
 import game.input.InputManager;
+import game.input.Keyboard;
+import game.input.Mouse;
 import game.model.FarmGrid;
+import game.view.HelpRenderer;
+import game.view.MenuRenderer;
+import game.view.StateRenderer;
 import static game.GameConstants.*;
 
 public class Game extends Canvas implements Runnable {
@@ -35,6 +40,9 @@ public class Game extends Canvas implements Runnable {
 
     private final StateUpdater gameUpdater  = new GameController();
     private final StateUpdater helpUpdater  = new HelpController();
+
+    private final StateRenderer menuRenderer = new MenuRenderer();
+    private final StateRenderer helpRenderer = new HelpRenderer();
 
     public Game() {
         ctx = new GameContext();
@@ -111,6 +119,12 @@ public class Game extends Canvas implements Runnable {
         if (bs == null) { createBufferStrategy(3); return; }
 
         ctx.screen.clear();
+
+        switch (ctx.handler.getState()) {
+            case MENU -> menuRenderer.render(ctx);
+            case HELP -> helpRenderer.render(ctx);
+            default   -> {}
+        }
 
         for (int i = 0; i < pixels.length; i++) pixels[i] = ctx.screen.pixels[i];
 

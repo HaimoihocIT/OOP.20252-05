@@ -6,6 +6,8 @@ import game.input.Keyboard;
 import game.input.Mouse;
 import game.input.Tool;
 import game.model.FarmGrid;
+import game.model.crop.CropData;
+import java.util.List;
 import static game.GameConstants.*;
 
 public class GameContext {
@@ -15,6 +17,7 @@ public class GameContext {
     public Keyboard keyboard;
     public FarmGrid grid;
     public BitmapFont guiFont;
+    public List<CropData> cropCatalog = CropData.getAllCrops();
 
     public int scale = DEFAULT_SCALE;
     public boolean scaleChanged = false;
