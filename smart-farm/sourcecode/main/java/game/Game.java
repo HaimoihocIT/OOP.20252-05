@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import game.controller.GameController;
+import game.controller.GameOverController;
 import game.controller.HelpController;
+import game.controller.MenuController;
 import game.controller.StateUpdater;
 import game.graphics.Screen;
 import game.graphics.text.BitmapFont;
@@ -38,8 +40,10 @@ public class Game extends Canvas implements Runnable {
     private GameContext ctx;
     private InputManager inputManager;
 
-    private final StateUpdater gameUpdater  = new GameController();
-    private final StateUpdater helpUpdater  = new HelpController();
+    private final StateUpdater gameUpdater     = new GameController();
+    private final StateUpdater helpUpdater     = new HelpController();
+    private final StateUpdater menuUpdater     = new MenuController();
+    private final StateUpdater gameOverUpdater = new GameOverController();
 
     private final StateRenderer menuRenderer = new MenuRenderer();
     private final StateRenderer helpRenderer = new HelpRenderer();
@@ -103,8 +107,10 @@ public class Game extends Canvas implements Runnable {
         ctx.tickCounter++;
 
         switch (ctx.handler.getState()) {
+            case MENU     -> menuUpdater.update(ctx, inputManager);
             case GAME     -> gameUpdater.update(ctx, inputManager);
             case HELP     -> helpUpdater.update(ctx, inputManager);
+            case GAMEOVER -> gameOverUpdater.update(ctx, inputManager);
             default       -> {}
         }
 
