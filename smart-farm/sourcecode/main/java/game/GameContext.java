@@ -5,14 +5,17 @@ import game.graphics.text.BitmapFont;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.input.Tool;
+import game.model.FarmGrid;
 import static game.GameConstants.*;
 
 public class GameContext {
     public Screen screen;
     public StateHandler handler;
     public Mouse mouse;
-    public BitmapFont guiFont;
     public Keyboard keyboard;
+    public FarmGrid grid;
+    public BitmapFont guiFont;
+
     public int scale = DEFAULT_SCALE;
     public boolean scaleChanged = false;
 
@@ -39,6 +42,7 @@ public class GameContext {
         selectedY = -1;
         selectedTool = Tool.NONE;
         message = "Welcome to Smart Farm!";
+        grid = new FarmGrid(GRID_ROWS, GRID_COLS);
         showQuitConfirm = false;
         shopPage = 0;
         seedIndex = 0;
