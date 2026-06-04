@@ -4,8 +4,6 @@ import game.GameContext;
 import game.GameState;
 import game.input.InputManager;
 
-import java.awt.font.GlyphMetrics;
-
 public class MenuController implements StateUpdater{
     @Override
     public void update(GameContext ctx, InputManager inputManager){
