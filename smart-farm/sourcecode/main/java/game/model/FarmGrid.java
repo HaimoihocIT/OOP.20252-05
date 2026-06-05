@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import game.model.crop.Crop;
+import game.GameContext;
+import game.model.trigger.*;
 import game.model.weather.Drought;
 import game.model.weather.Rainy;
 import game.model.weather.Sunny;
@@ -15,25 +17,33 @@ public class FarmGrid {
     private final int rows;
     private final int cols;
     private final FarmCell[][] cells;
+    private Weather bufferWeather;
     private Weather currentWeather = new Sunny();
+    private final TriggerManager triggerManager;
     private final Random random = new Random();
     private int daysSinceLastPests = 0;
     private int pestSpawnThreshold = 2 + random.nextInt(2); // Randomly 2 or 3
     private char[][] tileMap;
-
     public FarmGrid(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.cells = new FarmCell[rows][cols];
+
+        this.triggerManager = new TriggerManager();
+        this.triggerManager.registerTrigger(new PestTrigger());
+        this.triggerManager.registerTrigger(new WeatherTrigger("WEATHER_SUNNY", new Sunny()));
+        this.triggerManager.registerTrigger(new WeatherTrigger("WEATHER_RAINY", new Rainy()));
+        this.triggerManager.registerTrigger(new WeatherTrigger("WEATHER_DROUGHT", new Drought()));
+        
         this.tileMap = new char[rows][cols];
         loadMap("/maps/farm_map.txt");
-
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 cells[i][j] = new FarmCell();
             }
         }
     }
+
     // load the raw map
     private void loadMap(String path) {
         try {
@@ -50,6 +60,7 @@ public class FarmGrid {
             br.close();
         } catch (Exception e) {
             e.printStackTrace();
+            // Default to grass if loading fails
             for (int x = 0; x < rows; x++) {
                 for (int y = 0; y < cols; y++) {
                     tileMap[x][y] = 'G';
@@ -72,13 +83,8 @@ public class FarmGrid {
         return null;
     }
 
-    public void advanceDay() {
-        // create the weather follows the randon technique
-        double weatherRoll = random.nextDouble();
-        if (weatherRoll < 0.2)      currentWeather = new Rainy();
-        else if (weatherRoll < 0.4) currentWeather = new Drought();
-        else                        currentWeather = new Sunny();
-
+    public void advanceDay(GameContext ctx) {
+        this.triggerManager.onAdvanceDay(ctx);
         daysSinceLastPests++;
         boolean spawnPests = false;
         if (daysSinceLastPests >= pestSpawnThreshold) {
@@ -118,15 +124,22 @@ public class FarmGrid {
             }
             if (!candidates.isEmpty()) {
                 Collections.shuffle(candidates);
-                int numToSpawn = Math.min(4 + random.nextInt(3), candidates.size()); 
+                int numToSpawn = (int)(Math.min(4 + random.nextInt(3), candidates.size()) * currentWeather.getPestSpawnMultiplier());
                 for (int i = 0; i < numToSpawn; i++) {
                     candidates.get(i).setPests(true);
                 }
             }
         }
+
+        // create the weather follows the randon technique
+        double weatherRoll = random.nextDouble();
+        if (weatherRoll < 0.2)      currentWeather = new Rainy();
+        else if (weatherRoll < 0.4) currentWeather = new Drought();
+        else                        currentWeather = new Sunny();
+
     }
 
-    public Weather getCurrentWeather() { 
+    public Weather getCurrentWeather() {
         return currentWeather; 
     }
 
@@ -141,7 +154,16 @@ public class FarmGrid {
     public int getCols() { 
         return cols; 
     }
-
     
+    public Weather getBufferWeather(){
+        return this.bufferWeather;
+    }
 
+    public void setBufferWeather(Weather weather){
+        this.bufferWeather = weather;
+    }
+    
+    public TriggerManager getTriggerManager() {
+        return this.triggerManager;
+    }
 }
