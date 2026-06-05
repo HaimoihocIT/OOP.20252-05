@@ -3,6 +3,7 @@ package game.controller;
 import game.GameContext;
 import game.GameState;
 import game.input.InputManager;
+import static game.GameConstants.*;
 
 public class HelpController implements StateUpdater{
     @Override
@@ -12,7 +13,7 @@ public class HelpController implements StateUpdater{
 
         // Back button click
         if (inputManager.isJustPressed(ctx.mouse.getButton() == 1, "mouseLeft")) {
-            if (mx >= 155 && mx <= 155 + 90 && my >= 190 && my <= 190 + 27) {
+            if (mx >= BTN_CENTER_X && mx <= BTN_CENTER_X + BTN_SMALL_W && my >= HELP_BACK_Y && my <= HELP_BACK_Y + BTN_SMALL_H) {
                 ctx.handler.setState(GameState.MENU);
             }
         }
