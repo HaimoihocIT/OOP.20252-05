@@ -9,6 +9,15 @@ public class Chili extends Crop {
 
     @Override
     public Sprite getSprite() {
-        return null;
+        GrowthStage stage = getStage();
+        if (stage == GrowthStage.DEAD) return Sprite.sDead1;
+        if (stage == GrowthStage.SEED) return Sprite.sSeedGlobal;
+        return switch (stage) {
+            case STAGE1 -> Sprite.sChili1;
+            case STAGE2 -> Sprite.sChili2;
+            case STAGE3 -> Sprite.sChili3;
+            case MATURE -> Sprite.sChili4;
+            default     -> Sprite.sSeedGlobal;
+        };
     }
 }
