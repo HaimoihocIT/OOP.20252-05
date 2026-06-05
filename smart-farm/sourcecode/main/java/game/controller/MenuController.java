@@ -3,6 +3,7 @@ package game.controller;
 import game.GameContext;
 import game.GameState;
 import game.input.InputManager;
+import static game.GameConstants.*;
 
 public class MenuController implements StateUpdater{
     @Override
@@ -19,30 +20,30 @@ public class MenuController implements StateUpdater{
         }
 
         if (inputManager.isJustPressed(ctx.mouse.getButton() == 1, "mouseLeft")){
-            if (mx >= 155 && mx <= 155 + 90) {
+            if (mx >= BTN_CENTER_X && mx <= BTN_CENTER_X + BTN_SMALL_W) {
                 if (ctx.hasActiveGame){
                     // 4-button layout: CONTINUE(70), NEW GAME(100), HELP(130), QUIT(160)
-                    if (my >= 70  && my <= 70  + 27){
+                    if (my >= MENU_4BTN_CONTINUE_Y && my <= MENU_4BTN_CONTINUE_Y + BTN_SMALL_H){
                         ctx.handler.setState(GameState.GAME);
                     }
-                    else if (my >= 100 && my <= 100 + 27){
+                    else if (my >= MENU_4BTN_NEWGAME_Y && my <= MENU_4BTN_NEWGAME_Y + BTN_SMALL_H){
                         ctx.reset(); ctx.handler.setState(GameState.GAME);
                     }
-                    else if (my >= 130 && my <= 130 + 27){
+                    else if (my >= MENU_4BTN_HELP_Y && my <= MENU_4BTN_HELP_Y + BTN_SMALL_H){
                         ctx.handler.setState(GameState.HELP);
                     }
-                    else if (my >= 160 && my <= 160 + 27){
+                    else if (my >= MENU_4BTN_QUIT_Y && my <= MENU_4BTN_QUIT_Y + BTN_SMALL_H){
                         ctx.showQuitConfirm = true;
                     }
                 } else {
                     // 3-button layout: START GAME(70), HELP(105), QUIT(140)
-                    if (my >= 70  && my <= 70  + 27){
+                    if (my >= MENU_3BTN_START_Y && my <= MENU_3BTN_START_Y + BTN_SMALL_H){
                         ctx.reset(); ctx.handler.setState(GameState.GAME);
                     }
-                    else if (my >= 105 && my <= 105 + 27){
+                    else if (my >= MENU_3BTN_HELP_Y && my <= MENU_3BTN_HELP_Y + BTN_SMALL_H){
                         ctx.handler.setState(GameState.HELP);
                     }
-                    else if (my >= 140 && my <= 140 + 27){
+                    else if (my >= MENU_3BTN_QUIT_Y && my <= MENU_3BTN_QUIT_Y + BTN_SMALL_H){
                         ctx.showQuitConfirm = true;
                     }
                 }

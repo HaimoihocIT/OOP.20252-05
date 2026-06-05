@@ -16,6 +16,29 @@ public class GameConstants {
     public static final int STARTING_DAY = 1;
     public static final int STARTING_BALANCE = 100;
 
+    // UI BUTTONS
+    public static final int BTN_SMALL_W = 90;
+    public static final int BTN_SMALL_H = 27;
+    public static final int BTN_CENTER_X = 155;
+
+    // MENU
+    // 4-button layout (Active game)
+    public static final int MENU_4BTN_CONTINUE_Y = 70;
+    public static final int MENU_4BTN_NEWGAME_Y = 100;
+    public static final int MENU_4BTN_HELP_Y = 130;
+    public static final int MENU_4BTN_QUIT_Y = 160;
+    // 3-button layout (No active game)
+    public static final int MENU_3BTN_START_Y = 70;
+    public static final int MENU_3BTN_HELP_Y = 105;
+    public static final int MENU_3BTN_QUIT_Y = 140;
+
+    // GAMEOVER
+    public static final int GAMEOVER_PLAY_AGAIN_Y = 120;
+    public static final int GAMEOVER_EXIT_Y = 155;
+
+    // HELP
+    public static final int HELP_BACK_Y = 190;
+
     // COLORS 
     public static final int COLOR_BOARD_TEXT = 0xff603931;
     public static final int COLOR_MENU_BG = 0x1a1a2e;
