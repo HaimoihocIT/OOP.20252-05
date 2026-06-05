@@ -104,5 +104,13 @@ public abstract class Crop {
         return maxStressDays;
     }
 
+    protected void die(){
+        this.stage = GrowthStage.DEAD;
+    }
+
+    protected int getStressDays(){
+        return stressDays;
+    }
+
     public abstract Sprite getSprite();
 }
