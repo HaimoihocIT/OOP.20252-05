@@ -39,6 +39,31 @@ public class GameConstants {
     // HELP
     public static final int HELP_BACK_Y = 190;
 
+    // SHOP
+    public static final int CROPS_PER_PAGE = 3;
+    public static final int SHOP_BOARD_X = 46;
+    public static final int SHOP_BOARD_W = 308; // Width of each wooden board entry
+    public static final int SHOP_BOARD_H = 48;  // Height of each wooden board entry
+    public static final int[] SHOP_BOARD_YS = {45, 98, 151};
+    public static final int SHOP_TITLE_X = 155;
+    public static final int SHOP_TITLE_Y = 10;
+    public static final int SHOP_TITLE_TEXT_X = 171;
+    public static final int SHOP_TITLE_TEXT_Y = 19;
+    public static final int SHOP_PREV_X = 129;
+    public static final int SHOP_NEXT_X = 245;
+    public static final int SHOP_NAV_Y = 200;
+    public static final int SHOP_NAV_W = 26;
+    public static final int SHOP_NAV_H = 28;
+    public static final int SHOP_PAGE_TEXT_X = 174;
+    public static final int SHOP_PAGE_TEXT_Y = 208;
+    public static final int SHOP_HINT_X = 105;
+    public static final int SHOP_HINT_Y = 222;
+    public static final int SHOP_SPRITE_OFFSET_X = 10;
+    public static final int SHOP_SPRITE_OFFSET_Y = 12;
+    public static final int SHOP_TEXT_OFFSET_X = 35;
+    public static final int SHOP_TEXT_OFFSET_Y = 5;
+    public static final int SHOP_TEXT_LINE_SPACING = 12;
+
     // COLORS 
     public static final int COLOR_BOARD_TEXT = 0xff603931;
     public static final int COLOR_MENU_BG = 0x1a1a2e;
