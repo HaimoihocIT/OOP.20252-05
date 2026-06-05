@@ -23,7 +23,7 @@ public class CropData {
         new CropData("Cabbage", 12, 5, 10, 30, 60, 20, 40, Sprite.sCabbage4, Cabbage::new),
         new CropData("Corn", 28, 6, 20, 40, 70, 20, 80, Sprite.sCorn4, Corn::new),
         new CropData("Carrot", 8, 4, 10, 20, 50, 10, 30, Sprite.sCarrot4, Carrot::new),
-        new CropData("Radish", 5, 4, 10, 20, 50, 10, 20, Sprite.sRadish4, WhiteRadish::new),
+        new CropData("Radish", 5, 4, 10, 20, 50, 10, 20, Sprite.sRadish4, Radish::new),
         new CropData("Tomato", 16, 6, 20, 30, 60, 20, 50, Sprite.sTomato4, Tomato::new),
         new CropData("Pumpkin", 50, 9, 30, 50, 80, 30, 140, Sprite.sPumpkin4, Pumpkin::new),
         new CropData("Eggplant", 32, 7, 20, 40, 70, 30, 90, Sprite.sEggplant4, Eggplant::new),
