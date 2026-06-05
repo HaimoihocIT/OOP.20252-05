@@ -1,6 +1,6 @@
 package game;
 
-public class GameConstants {
+public final class GameConstants {
     private GameConstants() {}
     public static final int SCREEN_WIDTH = 400;
     public static final int SCREEN_HEIGHT = SCREEN_WIDTH / 16 * 9;
@@ -12,9 +12,12 @@ public class GameConstants {
 
     public static final int GRID_ROWS = 25;
     public static final int GRID_COLS = 14;
+    public static final int TILE_SIZE = 16;
 
     public static final int STARTING_DAY = 1;
     public static final int STARTING_BALANCE = 100;
+    public static final int FERTILIZER_COST = 2;
+    public static final int MIN_SEED_COST = 5;
 
     // UI BUTTONS
     public static final int BTN_SMALL_W = 90;
@@ -64,7 +67,20 @@ public class GameConstants {
     public static final int SHOP_TEXT_OFFSET_Y = 5;
     public static final int SHOP_TEXT_LINE_SPACING = 12;
 
-    // COLORS 
+    // HUD
+    public static final int HUD_TOOL_ICON_X = 210;
+    public static final int HUD_TOOL_ICON_Y = 190;
+    public static final int HUD_TOOL_SPACING = 20;
+    public static final int HUD_TOOL_CLICK_Y_MIN = 182;
+    public static final int HUD_TOOL_CLICK_Y_MAX = 210;
+    public static final int HUD_ADV_BTN_X = 315;
+    public static final int HUD_ADV_BTN_Y = 190;
+    public static final int HUD_ADV_BTN_W = 52;
+    public static final int HUD_ADV_BTN_H = 28;
+    public static final int HUD_INFO_X = 3;
+    public static final int HUD_INFO_Y = 175;
+
+    // COLORS
     public static final int COLOR_BOARD_TEXT = 0xff603931;
     public static final int COLOR_MENU_BG = 0x1a1a2e;
     public static final int COLOR_WHITE = 0xffffffff;

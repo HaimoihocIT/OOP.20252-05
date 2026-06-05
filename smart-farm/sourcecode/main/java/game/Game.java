@@ -11,6 +11,7 @@ import game.controller.GameController;
 import game.controller.GameOverController;
 import game.controller.HelpController;
 import game.controller.MenuController;
+import game.controller.ShopController;
 import game.controller.StateUpdater;
 import game.graphics.Screen;
 import game.graphics.text.BitmapFont;
@@ -37,12 +38,13 @@ public class Game extends Canvas implements Runnable {
     public int numUpdates = 0;
     public int numFrames = 0;
 
-    private GameContext ctx;
+    public GameContext ctx;
     private InputManager inputManager;
 
-    private final StateUpdater gameUpdater     = new GameController();
-    private final StateUpdater helpUpdater     = new HelpController();
     private final StateUpdater menuUpdater     = new MenuController();
+    private final StateUpdater helpUpdater     = new HelpController();
+    private final StateUpdater gameUpdater     = new GameController();
+    private final StateUpdater shopUpdater     = new ShopController();
     private final StateUpdater gameOverUpdater = new GameOverController();
 
     private final StateRenderer menuRenderer = new MenuRenderer();
@@ -108,8 +110,9 @@ public class Game extends Canvas implements Runnable {
 
         switch (ctx.handler.getState()) {
             case MENU     -> menuUpdater.update(ctx, inputManager);
-            case GAME     -> gameUpdater.update(ctx, inputManager);
             case HELP     -> helpUpdater.update(ctx, inputManager);
+            case GAME     -> gameUpdater.update(ctx, inputManager);
+            case SHOP     -> shopUpdater.update(ctx, inputManager);
             case GAMEOVER -> gameOverUpdater.update(ctx, inputManager);
             default       -> {}
         }

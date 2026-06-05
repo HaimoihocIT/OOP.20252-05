@@ -16,6 +16,16 @@ public class GameLauncher {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        game.ctx.scaleChangedCallback = () -> {
+            Dimension size = new Dimension(SCREEN_WIDTH * game.ctx.scale, SCREEN_HEIGHT * game.ctx.scale);
+            game.setPreferredSize(size);
+            game.setMinimumSize(size);
+            game.setMaximumSize(size);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+        };
+
         game.start();
     }
 }

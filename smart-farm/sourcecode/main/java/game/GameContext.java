@@ -22,8 +22,8 @@ public class GameContext {
     public int scale = DEFAULT_SCALE;
     public boolean scaleChanged = false;
 
-    public int day = STARTING_DAY;
-    public int balance = STARTING_BALANCE;
+    private int day = STARTING_DAY;
+    private int balance = STARTING_BALANCE;
     public int selectedX = -1;
     public int selectedY = -1;
     public Tool selectedTool = Tool.NONE;
@@ -37,6 +37,18 @@ public class GameContext {
 
     public boolean showQuitConfirm = false;
     public boolean hasActiveGame = false;
+
+    public int getDay() { return day; }
+    public int getBalance() { return balance; }
+    public void advanceDay() { day++; }
+    public boolean spend(int amount) {
+        if (balance < amount) return false;
+        balance -= amount;
+        return true;
+    }
+    public void earn(int amount) {
+        if (amount > 0) balance += amount;
+    }
 
     public void reset() {
         day = STARTING_DAY;
