@@ -17,8 +17,8 @@ public class GameLauncher {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        game.ctx.scaleChangedCallback = () -> {
-            Dimension size = new Dimension(SCREEN_WIDTH * game.ctx.scale, SCREEN_HEIGHT * game.ctx.scale);
+        game.getCtx().scaleChangedCallback = () -> {
+            Dimension size = new Dimension(SCREEN_WIDTH * game.getCtx().scale, SCREEN_HEIGHT * game.getCtx().scale);
             game.setPreferredSize(size);
             game.setMinimumSize(size);
             game.setMaximumSize(size);

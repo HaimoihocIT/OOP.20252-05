@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Map;
 
 import game.controller.GameController;
 import game.controller.GameOverController;
@@ -19,6 +20,7 @@ import game.input.InputManager;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.model.FarmGrid;
+import game.model.crop.CropData;
 import game.view.HelpRenderer;
 import game.view.MenuRenderer;
 import game.view.StateRenderer;
@@ -38,14 +40,16 @@ public class Game extends Canvas implements Runnable {
     public int numUpdates = 0;
     public int numFrames = 0;
 
-    public GameContext ctx;
+    private GameContext ctx;
     private InputManager inputManager;
 
-    private final StateUpdater menuUpdater     = new MenuController();
-    private final StateUpdater helpUpdater     = new HelpController();
-    private final StateUpdater gameUpdater     = new GameController();
-    private final StateUpdater shopUpdater     = new ShopController();
-    private final StateUpdater gameOverUpdater = new GameOverController();
+    private final Map<GameState, StateUpdater> updaters = Map.of(
+        GameState.MENU,     new MenuController(),
+        GameState.HELP,     new HelpController(),
+        GameState.GAME,     new GameController(),
+        GameState.SHOP,     new ShopController(),
+        GameState.GAMEOVER, new GameOverController()
+    );
 
     private final StateRenderer menuRenderer = new MenuRenderer();
     private final StateRenderer helpRenderer = new HelpRenderer();
@@ -62,12 +66,15 @@ public class Game extends Canvas implements Runnable {
         ctx.keyboard = new Keyboard();
         ctx.grid    = new FarmGrid(GRID_ROWS, GRID_COLS);
         ctx.guiFont = new BitmapFont("/font maps/monogram-bitmap.json");
+        ctx.cropCatalog = CropData.getAllCrops();
 
         addMouseListener(ctx.mouse);
         addMouseMotionListener(ctx.mouse);
         addKeyListener(ctx.keyboard);
         setFocusTraversalKeysEnabled(false);
     }
+
+    public GameContext getCtx() { return ctx; }
 
     public synchronized void start() {
         running = true;
@@ -108,14 +115,7 @@ public class Game extends Canvas implements Runnable {
         ctx.keyboard.update();
         ctx.tickCounter++;
 
-        switch (ctx.handler.getState()) {
-            case MENU     -> menuUpdater.update(ctx, inputManager);
-            case HELP     -> helpUpdater.update(ctx, inputManager);
-            case GAME     -> gameUpdater.update(ctx, inputManager);
-            case SHOP     -> shopUpdater.update(ctx, inputManager);
-            case GAMEOVER -> gameOverUpdater.update(ctx, inputManager);
-            default       -> {}
-        }
+        updaters.get(ctx.handler.getState()).update(ctx, inputManager);
 
         if (ctx.scaleChanged) {
             ctx.scaleChanged = false;
