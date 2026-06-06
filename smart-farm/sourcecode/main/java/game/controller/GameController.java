@@ -61,8 +61,8 @@ public class GameController implements StateUpdater{
 
         // Enter — advance day
         if (inputManager.isJustPressed(ctx.keyboard.enter, "enterTriggered")) {
-            ctx.day++;
-            ctx.grid.advanceDay();
+            ctx.advanceDay();
+            ctx.grid.advanceDay(ctx);
             checkGameOver(ctx);
         }
 
