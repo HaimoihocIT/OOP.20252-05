@@ -1,6 +1,5 @@
 package game.model.crop;
 
-import game.graphics.Sprite;
 
 public class Cabbage extends Crop {
     public Cabbage() {
@@ -8,16 +7,7 @@ public class Cabbage extends Crop {
     }
 
     @Override
-    public Sprite getSprite() {
-        GrowthStage stage = getStage();
-        if (stage == GrowthStage.DEAD) return Sprite.sDead1;
-        if (stage == GrowthStage.SEED) return Sprite.sSeedGlobal;
-        return switch (stage) {
-            case STAGE1 -> Sprite.sCabbage1;
-            case STAGE2 -> Sprite.sCabbage2;
-            case STAGE3 -> Sprite.sCabbage3;
-            case MATURE -> Sprite.sCabbage4;
-            default     -> Sprite.sSeedGlobal;
-        };
+    public String getCropName() {
+        return "Cabbage";
     }
 }
