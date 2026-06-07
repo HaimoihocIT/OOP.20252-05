@@ -1,6 +1,5 @@
 package game.model.weather;
 
-import game.graphics.Sprite;
 import game.model.FarmCell;
 
 public class Rainy extends BaseWeather {
@@ -16,12 +15,25 @@ public class Rainy extends BaseWeather {
     }
 
     @Override
-    public Sprite getGrassSprite(int baseSeed) {
-        return null;
+    public double getPestSpawnMultiplier() { 
+        return 0.5; 
     }
 
     @Override
-    public Sprite getFarmlandSprite(boolean u, boolean d, boolean l, boolean r, int moisture) {
-        return null;
+    public TileAppearance getGrassAppearance(int baseSeed) {
+        // 70% chance of wet, 30% chance of normal 
+        int chance = baseSeed % 10;
+        if (chance < 7) {
+            return (baseSeed % 2 == 0) ? TileAppearance.GRASS_WET_1 : TileAppearance.GRASS_WET_2;
+        } else {
+            
+            int variant = baseSeed % 3;
+            return switch (variant) {
+                case 0  -> TileAppearance.GRASS_NORMAL_1;
+                case 1  -> TileAppearance.GRASS_NORMAL_2;
+                default -> TileAppearance.GRASS_NORMAL_3;
+            };
+        }
     }
+
 }

@@ -95,4 +95,5 @@ public final class GameConstants {
     public static final int COLOR_TEXT_DIM = 0xff888888;
     public static final int COLOR_HELP_TEXT = 0xffdddddd;
     public static final int COLOR_NUTRIENT_TEXT = 0xffffffaa;
+
 }
