@@ -5,8 +5,8 @@ import game.graphics.Sprite;
 
 import static game.GameConstants.*;
 
-// Renders the help 
-public class HelpRenderer implements StateRenderer {
+
+public class HelpRenderer extends BaseRenderer {
 
     @Override
     public void render(GameContext ctx) {
@@ -20,15 +20,16 @@ public class HelpRenderer implements StateRenderer {
         int y = 50;
         int x = 60;
 
-        ctx.guiFont.render(ctx.screen, "1. LEFT CLICK to use selected tool",        x, y,        COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "2. 1-5 keys or click HUD to select tools",  x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "3. P key to open Seed Shop",                x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "4. TAB to cycle through equipped seeds",    x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "5. ENTER or click Adv Day to end turn",     x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "6. ARROWS/SPACE for keyboard play",         x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "7. [ and ] to adjust window scale",         x, y += 15,  COLOR_WHITE, 1, true, false);
-        ctx.guiFont.render(ctx.screen, "8. Plant needs water EVERY DAY",            x, y += 15,  COLOR_WHITE, 1, true, false);
-
+        ctx.guiFont.render(ctx.screen, "1. LEFT CLICK to use selected tool", x, y, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "2. Keys 1-5 to select tool", x, y += 15, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "3. P key to open Seed Shop", x, y += 15, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "4. ENTER or Adv Day button to end turn", x, y += 15, 0xff000000, 1, false,
+                false);
+        ctx.guiFont.render(ctx.screen, "5. ESC to open menu", x, y += 15, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "6. Harvest only MATURE crops", x, y += 15, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "7. Plant needs water EVERY DAY", x, y += 15, 0xff000000, 1, false, false);
+        ctx.guiFont.render(ctx.screen, "8. S=Sunny  D=Drought  R=Rainy  L=Bug", x, y += 15, 0xff000000, 1, false,
+                false);
         // Back Button
         ctx.screen.renderSprite(155, 190, Sprite.smallWoodenBoard, false);
         ctx.guiFont.render(ctx.screen, "BACK", 188, 200, COLOR_WHITE, 1, true, false);

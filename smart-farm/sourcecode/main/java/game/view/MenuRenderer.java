@@ -5,8 +5,8 @@ import game.graphics.Sprite;
 
 import static game.GameConstants.*;
 
-// Renders the main menu screen.
-public class MenuRenderer implements StateRenderer {
+
+public class MenuRenderer extends BaseRenderer {
 
     @Override
     public void render(GameContext ctx) {
@@ -17,14 +17,14 @@ public class MenuRenderer implements StateRenderer {
         ctx.guiFont.render(ctx.screen, "SMART FARM SIMULATOR", 80, 27, COLOR_WHITE, 2, true, false);
 
         if (ctx.hasActiveGame) {
-            renderMenuButton(ctx, 155, 70,  "CONTINUE");
-            renderMenuButton(ctx, 155, 100, "NEW GAME");
-            renderMenuButton(ctx, 155, 130, "HELP");
-            renderMenuButton(ctx, 155, 160, "QUIT");
+            renderButton(ctx, 155, 70,  "CONTINUE");
+            renderButton(ctx, 155, 100, "NEW GAME");
+            renderButton(ctx, 155, 130, "HELP");
+            renderButton(ctx, 155, 160, "QUIT");
         } else {
-            renderMenuButton(ctx, 155, 70,  "START GAME");
-            renderMenuButton(ctx, 155, 105, "HELP");
-            renderMenuButton(ctx, 155, 140, "QUIT");
+            renderButton(ctx, 155, 70,  "START GAME");
+            renderButton(ctx, 155, 105, "HELP");
+            renderButton(ctx, 155, 140, "QUIT");
             ctx.guiFont.render(ctx.screen, "PRESS ENTER TO START", 140, 175, COLOR_WHITE, 1, true, false);
         }
 
@@ -36,9 +36,5 @@ public class MenuRenderer implements StateRenderer {
         }
     }
 
-    private void renderMenuButton(GameContext ctx, int x, int y, String text) {
-        ctx.screen.renderSprite(x, y, Sprite.smallWoodenBoard, false);
-        int textX = x + (90 - text.length() * 6) / 2;
-        ctx.guiFont.render(ctx.screen, text, textX, y + 10, COLOR_WHITE, 1, true, false);
-    }
+
 }
