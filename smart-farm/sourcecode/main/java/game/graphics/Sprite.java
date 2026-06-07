@@ -2,33 +2,29 @@ package game.graphics;
 
 public class Sprite {
 
-	// Standard tile size for the game's grid system (16x16). 
-	private final static int TSIZE = 16; 
-	
-	public final int SIZE; 
-	
+	// Standard tile size for the game's grid system (16x16).
+	private final static int TSIZE = 16;
+
+	public final int SIZE;
+
 	private int x, y;
 	private int width, height;
-	
-	
-	public int[] pixels; 
-	protected SpriteSheet sheet;
-	
 
-	
+	public int[] pixels;
+	protected SpriteSheet sheet;
 
 	/*
-	Extracts a square sprite from a SpriteSheet.
-	Converts tile-grid coordinates (x, y) to absolute pixel coordinates.
-	*/
+	 * Extracts a square sprite from a SpriteSheet.
+	 * Converts tile-grid coordinates (x, y) to absolute pixel coordinates.
+	 */
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
-		this.SIZE = size; 
+		this.SIZE = size;
 		this.width = size;
 		this.height = size;
-		this.pixels = new int[SIZE * SIZE]; 
-		this.x = x * size; 
-		this.y = y * size; 
-		this.sheet = sheet; 
+		this.pixels = new int[SIZE * SIZE];
+		this.x = x * size;
+		this.y = y * size;
+		this.sheet = sheet;
 		load();
 	}
 
@@ -44,17 +40,17 @@ public class Sprite {
 		load();
 	}
 
-
-	// Copies pixel data from the parent SpriteSheet's 1D array to this Sprite's local array 
+	// Copies pixel data from the parent SpriteSheet's 1D array to this Sprite's
+	// local array
 	// using index arithmetic (x + y * width).
 	private void load() {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH]; 
+				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH];
 			}
 		}
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
@@ -63,7 +59,7 @@ public class Sprite {
 		return height;
 	}
 
-	// GLOBAL ASSET DECLARATIONS 
+	// GLOBAL ASSET DECLARATIONS
 	// Terrain Assets: Base map tiles including seasonal variants (16x16)
 	public static Sprite nGrass1 = new Sprite(TSIZE, 0, 0, SpriteSheet.test_tiles);
 	public static Sprite nGrass2 = new Sprite(TSIZE, 1, 0, SpriteSheet.test_tiles);
@@ -150,9 +146,8 @@ public class Sprite {
 	public static Sprite fHeatBotWet2 = new Sprite(TSIZE, 7, 6, SpriteSheet.test_tiles);
 	public static Sprite fHeatBotRightWet2 = new Sprite(TSIZE, 8, 6, SpriteSheet.test_tiles);
 
-	
 	public static Sprite select = new Sprite(8, 0, 0, SpriteSheet.select);
-	
+
 	// Interactive Entities: Collectible items, tools
 	public static Sprite sword = new Sprite(16, 0, 0, SpriteSheet.sword);
 	public static Sprite fertilizer = new Sprite(16, 0, 0, SpriteSheet.fertilizerSheet);
@@ -167,7 +162,7 @@ public class Sprite {
 	public static Sprite snow1 = new Sprite(16, 0, 0, SpriteSheet.snow);
 	public static Sprite snow2 = new Sprite(16, 1, 0, SpriteSheet.snow);
 	public static Sprite snow3 = new Sprite(16, 2, 0, SpriteSheet.snow);
-	
+
 	// Crop Entities: Multi-stage growth textures for farming mechanics
 	public static Sprite sRice1 = new Sprite(16, 32, 0, 0, SpriteSheet.plant_test);
 	public static Sprite sRice2 = new Sprite(16, 32, 1, 0, SpriteSheet.plant_test);
@@ -216,14 +211,14 @@ public class Sprite {
 	public static Sprite sDead1 = new Sprite(16, 32, 1, 3, SpriteSheet.plant_test);
 	public static Sprite sDead2 = new Sprite(16, 32, 2, 3, SpriteSheet.plant_test);
 
-	// GUI Assets: Rectangular sprites for menus and HUD 
+	// GUI Assets: Rectangular sprites for menus and HUD
 	public static Sprite bgBlur = new Sprite(400, 225, 0, 0, SpriteSheet.bgBlurSheet);
 	public static Sprite titleBoard = new Sprite(90, 27, 0, 0, SpriteSheet.titleBoardSheet);
 	public static Sprite woodenBoard = new Sprite(308, 48, 0, 0, SpriteSheet.woodenBoardSheet);
 	public static Sprite prevPage = new Sprite(26, 28, 0, 0, SpriteSheet.prevPageSheet);
 	public static Sprite nextPage = new Sprite(26, 28, 0, 0, SpriteSheet.nextPageSheet);
 	public static Sprite advDayBtn = new Sprite(52, 28, 0, 0, SpriteSheet.advDaySheet);
-	
+
 	public static Sprite sunnyIcon = new Sprite(26, 28, 0, 0, SpriteSheet.sunnyIconSheet);
 	public static Sprite rainIcon = new Sprite(26, 28, 0, 0, SpriteSheet.rainIconSheet);
 	public static Sprite snowIcon = new Sprite(26, 28, 0, 0, SpriteSheet.snowIconSheet);
@@ -231,11 +226,11 @@ public class Sprite {
 	public static Sprite ladyBugIcon = new Sprite(26, 28, 0, 0, SpriteSheet.ladyBugIconSheet);
 	public static Sprite helpBoard = new Sprite(308, 155, 0, 0, SpriteSheet.helpBoardSheet);
 	public static Sprite smallWoodenBoard = new Sprite(90, 27, 0, 0, SpriteSheet.smallWoodenBoardSheet);
-	
-	public static Sprite hoeAnimRight1 = new Sprite(32,0,0,SpriteSheet.animHoe);
-	public static Sprite hoeAnimRight2 = new Sprite(32,1,0,SpriteSheet.animHoe);
-	public static Sprite hoeAnimLeft1 = new Sprite(32,3,0,SpriteSheet.animHoe);
-	public static Sprite hoeAnimLeft2 = new Sprite(32,2,0,SpriteSheet.animHoe);
+
+	public static Sprite hoeAnimRight1 = new Sprite(32, 0, 0, SpriteSheet.animHoe);
+	public static Sprite hoeAnimRight2 = new Sprite(32, 1, 0, SpriteSheet.animHoe);
+	public static Sprite hoeAnimLeft1 = new Sprite(32, 3, 0, SpriteSheet.animHoe);
+	public static Sprite hoeAnimLeft2 = new Sprite(32, 2, 0, SpriteSheet.animHoe);
 	public static Sprite hoeAnimDown1 = new Sprite(32, 0, 1, SpriteSheet.animHoe);
 	public static Sprite hoeAnimDown2 = new Sprite(32, 1, 1, SpriteSheet.animHoe);
 }
