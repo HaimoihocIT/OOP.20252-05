@@ -21,8 +21,11 @@ import game.input.Keyboard;
 import game.input.Mouse;
 import game.model.FarmGrid;
 import game.model.crop.CropData;
+import game.view.GameOverRenderer;
+import game.view.GameRenderer;
 import game.view.HelpRenderer;
 import game.view.MenuRenderer;
+import game.view.ShopRenderer;
 import game.view.StateRenderer;
 import static game.GameConstants.*;
 
@@ -51,8 +54,11 @@ public class Game extends Canvas implements Runnable {
         GameState.GAMEOVER, new GameOverController()
     );
 
-    private final StateRenderer menuRenderer = new MenuRenderer();
-    private final StateRenderer helpRenderer = new HelpRenderer();
+    private final StateRenderer menuRenderer     = new MenuRenderer();
+    private final StateRenderer helpRenderer     = new HelpRenderer();
+    private final StateRenderer gameRenderer     = new GameRenderer();
+    private final StateRenderer shopRenderer     = new ShopRenderer();
+    private final StateRenderer gameOverRenderer = new GameOverRenderer();
 
     public Game() {
         ctx = new GameContext();
@@ -130,9 +136,11 @@ public class Game extends Canvas implements Runnable {
         ctx.screen.clear();
 
         switch (ctx.handler.getState()) {
-            case MENU -> menuRenderer.render(ctx);
-            case HELP -> helpRenderer.render(ctx);
-            default   -> {}
+            case MENU     -> menuRenderer.render(ctx);
+            case HELP     -> helpRenderer.render(ctx);
+            case GAME     -> gameRenderer.render(ctx);
+            case SHOP     -> shopRenderer.render(ctx);
+            case GAMEOVER -> gameOverRenderer.render(ctx);
         }
 
         for (int i = 0; i < pixels.length; i++) pixels[i] = ctx.screen.pixels[i];

@@ -1,4 +1,4 @@
-﻿package game.view;
+package game.view;
 
 import game.GameContext;
 import game.graphics.Sprite;
