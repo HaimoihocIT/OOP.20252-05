@@ -2,6 +2,7 @@ package game.graphics.text;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -24,10 +25,19 @@ public class BitmapFont {
             Gson gson = new Gson();
             InputStream is = BitmapFont.class.getResourceAsStream(jsonPath);
             if (is == null) {
+                String[] fallbacks = {
+                    "sourcecode/main/resoources" + jsonPath,
+                    "smart-farm/sourcecode/main/resoources" + jsonPath
+                };
+                for (String p : fallbacks) {
+                    try { is = new java.io.FileInputStream(p); break; } catch (Exception ignored) {}
+                }
+            }
+            if (is == null) {
                 System.err.println("Could not find font map: " + jsonPath);
                 return;
             }
-            InputStreamReader reader = new InputStreamReader(is);
+            InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
             Type type = new TypeToken<Map<String, int[]>>(){}.getType();
             charMap = gson.fromJson(reader, type);
         } catch (Exception e) {
