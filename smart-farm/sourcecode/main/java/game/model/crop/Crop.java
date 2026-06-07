@@ -44,7 +44,7 @@ public abstract class Crop {
         return maxStressDays;
     }
 
-    protected int getStressDays(){
+    public int getStressDays(){
         return stressDays;
     }
 
