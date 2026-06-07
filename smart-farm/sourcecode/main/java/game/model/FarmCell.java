@@ -21,7 +21,7 @@ public class FarmCell {
     }
 
     public void fertilizeCell() {
-        this.nutrientLevel += 20;
+        this.nutrientLevel += 10;
         if (nutrientLevel > 100) 
             nutrientLevel = 100;
     }
@@ -51,14 +51,21 @@ public class FarmCell {
     }
 
     public void setNutrientLevel(int nutrientLevel) {
-        if (nutrientLevel < 0) nutrientLevel = 0;
-        if (nutrientLevel > 100) nutrientLevel = 100;
+        if (nutrientLevel < 0) 
+            nutrientLevel = 0;
+
+        if (nutrientLevel > 100) 
+            nutrientLevel = 100;
         this.nutrientLevel = nutrientLevel;
     }
 
     public void setMoistureLevel(int moistureLevel) {
-        if (moistureLevel < 0) moistureLevel = 0;
-        if (moistureLevel > 100) moistureLevel = 100;
+        if (moistureLevel < 0) 
+            moistureLevel = 0;
+        
+        if (moistureLevel > 100) 
+            moistureLevel = 100;
+
         this.moistureLevel = moistureLevel;
     }
 

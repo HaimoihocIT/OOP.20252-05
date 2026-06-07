@@ -96,4 +96,9 @@ public final class GameConstants {
     public static final int COLOR_HELP_TEXT = 0xffdddddd;
     public static final int COLOR_NUTRIENT_TEXT = 0xffffffaa;
 
+    // config the farm grid
+    public static final String FARM_MAP_PATH = "/maps/farm_map.txt";
+    public static final int PEST_SPAWN_BASE_DAYS = 2;
+    public static final int PEST_SPAWN_RANDOM_DAYS = 2;
+
 }
