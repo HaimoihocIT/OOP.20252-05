@@ -1,8 +1,6 @@
 package game.model.crop;
 
-import game.graphics.Sprite;
 import game.model.FarmCell;
-import game.model.weather.Drought;
 import game.model.weather.Weather;
 
 public abstract class Crop {
@@ -30,6 +28,26 @@ public abstract class Crop {
         this.daysHasPests = 0;
     }
 
+    public int getDaysPlanted(){
+        return daysPlanted;
+    }
+
+    public int getGrowthTime(){
+        return growthTime;
+    }
+
+    public GrowthStage getStage() {
+        return stage;
+    }
+
+    public int getMaxStressDays(){
+        return maxStressDays;
+    }
+
+    public int getStressDays(){
+        return stressDays;
+    }
+
     public void grow(){
         if(stage == GrowthStage.DEAD || stage == GrowthStage.MATURE) return;
 
@@ -50,8 +68,7 @@ public abstract class Crop {
     public void consumeResources(FarmCell cell, Weather weather){
         if(stage == GrowthStage.DEAD) return;
 
-        int waterUse = this.dailyWaterRequirement;
-        if(weather instanceof Drought) waterUse += 10;
+        int waterUse = this.dailyWaterRequirement + weather.getWaterRequirement();
 
         int currentCellMoisture = cell.getMoistureLevel();
         if(currentCellMoisture >= minMoistureThreshold && currentCellMoisture <= maxMoistureThreshold){
@@ -86,9 +103,6 @@ public abstract class Crop {
             daysHasPests = 0;
         }
     }
-    public GrowthStage getStage() {
-        return stage;
-    }
 
     public void checkSurvival() {
         if (stressDays >= maxStressDays) {
@@ -100,17 +114,16 @@ public abstract class Crop {
         updateMaxStressDays();
     }
 
-    public int getMaxStressDays(){
-        return maxStressDays;
-    }
-
     protected void die(){
         this.stage = GrowthStage.DEAD;
     }
 
-    protected int getStressDays(){
-        return stressDays;
+    public String getSpriteKey() {
+        if (stage == GrowthStage.SEED) {
+            return "Global_SEED";
+        }
+        return getCropName() + "_" + stage.name();
     }
 
-    public abstract Sprite getSprite();
+    public abstract String getCropName();
 }

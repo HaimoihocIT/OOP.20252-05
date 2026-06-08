@@ -83,4 +83,39 @@ public class Screen {
             }
         }
     }
+
+	/*
+    Applies a rain overlay effect: renders rain sprites at fixed positions
+    and adds a subtle blue color tint to the entire screen.
+     */
+    public void applyRainOverlay(int tick) {
+        // Select rain sprite frame based on tick for animation
+        Sprite rainSprite;
+        int frame = (tick / 10) % 3;
+        if (frame == 0) rainSprite = Sprite.rain1;
+        else if (frame == 1) rainSprite = Sprite.rain2;
+        else rainSprite = Sprite.rain3;
+
+        // Render rain sprites at several positions across the grid area
+        int spacing = 48;
+        int yShift = (tick * 2) % spacing; // Falling effect
+        for (int rx = 0; rx < width; rx += spacing) {
+            for (int ry = -16 + yShift; ry < height; ry += spacing) {
+                renderSprite(rx, ry, rainSprite, false);
+            }
+        }
+
+        // Apply a subtle blue tint to all pixels
+        for (int i = 0; i < pixels.length; i++) {
+            int col = pixels[i];
+            int r = (col >> 16) & 0xFF;
+            int g = (col >> 8) & 0xFF;
+            int b = col & 0xFF;
+            r = (int)(r * 0.92);
+            g = (int)(g * 0.95);
+            b = Math.min(255, (int)(b * 1.08));
+            pixels[i] = (r << 16) | (g << 8) | b;
+        }
+    }
+
 }

@@ -67,7 +67,16 @@ public final class GameConstants {
     public static final int SHOP_TEXT_OFFSET_Y = 5;
     public static final int SHOP_TEXT_LINE_SPACING = 12;
 
+    // EVENT BUTTONS
+    public static final int EVENT_BTN_X = 370;
+    public static final int EVENT_BTN_W = 26;
+    public static final int EVENT_BTN_H = 28;
+    public static final int[] WEATHER_BTN_YS = { 45, 80, 115 };
+    public static final int PEST_BTN_Y = 150;
+
     // HUD
+    public static final int HUD_ESC_BTN_W = 40;
+    public static final int HUD_ESC_BTN_H = 12;
     public static final int HUD_TOOL_ICON_X = 210;
     public static final int HUD_TOOL_ICON_Y = 190;
     public static final int HUD_TOOL_SPACING = 20;
@@ -95,4 +104,10 @@ public final class GameConstants {
     public static final int COLOR_TEXT_DIM = 0xff888888;
     public static final int COLOR_HELP_TEXT = 0xffdddddd;
     public static final int COLOR_NUTRIENT_TEXT = 0xffffffaa;
+
+    // config the farm grid
+    public static final String FARM_MAP_PATH = "/maps/farm_map.txt";
+    public static final int PEST_SPAWN_BASE_DAYS = 2;
+    public static final int PEST_SPAWN_RANDOM_DAYS = 2;
+
 }
