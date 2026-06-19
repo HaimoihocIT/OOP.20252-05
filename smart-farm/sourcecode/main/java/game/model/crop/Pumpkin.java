@@ -2,7 +2,7 @@ package game.model.crop;
 
 
 public class Pumpkin extends Crop {
-    public Pumpkin() {
+    Pumpkin() {
         super(9, 140, 50, 80, 30, 4, 30);
     }
 

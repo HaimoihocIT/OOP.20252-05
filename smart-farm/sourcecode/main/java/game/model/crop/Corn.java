@@ -2,7 +2,7 @@ package game.model.crop;
 
 
 public class Corn extends Crop {
-    public Corn() {
+    Corn() {
         super(6, 80, 40, 70, 20, 3, 20);
     }
 
