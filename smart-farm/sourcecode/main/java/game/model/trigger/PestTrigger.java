@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import game.model.pest.Pest;
 
 public class PestTrigger implements GameTrigger {
     private boolean active = false;
@@ -44,7 +45,7 @@ public class PestTrigger implements GameTrigger {
         int numToSpawn = Math.min(10 + random.nextInt(3), candidates.size());
         for (int i = 0; i < numToSpawn; i++) {
             FarmCell cell = candidates.get(i);
-            cell.setPests(true);
+            cell.addPest(new Pest());
             affectedCells.add(cell);
         }
     }

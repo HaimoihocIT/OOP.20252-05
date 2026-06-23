@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import game.model.crop.Crop;
 import game.GameContext;
+import game.model.pest.Pest;
 import static game.GameConstants.*;
 import game.model.trigger.*;
 import game.model.weather.Drought;
@@ -113,7 +114,7 @@ public class FarmGrid {
         }
         crop.consumeResources(cell, currentWeather);
         if (cell.hasPests()) {
-            crop.pestsAttack();
+            cell.getPest().attack(crop);
         } else {
             crop.grow();
         }
@@ -142,7 +143,7 @@ public class FarmGrid {
         int baseSpawn = (int) ((6 + random.nextInt(3)) * currentWeather.getPestSpawnMultiplier());
         int numToSpawn = Math.min(baseSpawn, candidates.size());
         for (int i = 0; i < numToSpawn; i++) {
-            candidates.get(i).setPests(true);
+            candidates.get(i).addPest(new Pest());
         }
     }
 

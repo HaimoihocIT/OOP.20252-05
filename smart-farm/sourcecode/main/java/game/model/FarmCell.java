@@ -1,16 +1,17 @@
 package game.model;
 import game.model.crop.Crop;
+import game.model.pest.Pest;
 
 public class FarmCell {
     private int moistureLevel;
     private int nutrientLevel;
-    private boolean hasPests;
+    private Pest pest;
     private Crop currentCrop;
 
     public FarmCell() {
         this.moistureLevel = 0;
         this.nutrientLevel = 0;
-        this.hasPests = false;
+        this.pest = null;
         this.currentCrop = null;
     }
 
@@ -27,15 +28,19 @@ public class FarmCell {
     }
 
     public void clearPests() {
-        this.hasPests = false;
+        this.pest = null;
     }
 
     public boolean hasPests() {
-        return hasPests;
+        return this.pest != null;
     }
 
-    public void setPests(boolean hasPests) {
-        this.hasPests = hasPests;
+    public void addPest(Pest pest) {
+        this.pest = pest;
+    }
+
+    public Pest getPest() {
+        return this.pest;
     }
 
     public boolean isAvailable() {
