@@ -23,7 +23,7 @@ public class StateHandler {
             case GAME     -> to == GameState.MENU || to == GameState.SHOP || to == GameState.GAMEOVER;
             case SHOP     -> to == GameState.GAME;
             case HELP     -> to == GameState.MENU;
-            case GAMEOVER -> to == GameState.MENU;
+            case GAMEOVER -> to == GameState.MENU || to == GameState.GAME;
         };
     }
 

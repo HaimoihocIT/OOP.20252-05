@@ -98,6 +98,9 @@ public abstract class Crop {
     }
 
     private void updateMaxStressDays(){
+        if(stage == GrowthStage.DEAD){
+            return ; 
+        }
         if(daysHasPests >= maxStressDays){
             maxStressDays--;
             daysHasPests = 0;
@@ -109,8 +112,11 @@ public abstract class Crop {
             stage = GrowthStage.DEAD;
         }
     }
-    public void pestsAttack(){
-        daysHasPests++;
+    public void pestsAttack(int damage){
+        if(stage == GrowthStage.DEAD){
+            return ; 
+        }
+        daysHasPests+= damage;
         updateMaxStressDays();
     }
 

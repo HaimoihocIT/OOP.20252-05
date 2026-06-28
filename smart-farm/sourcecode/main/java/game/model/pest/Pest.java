@@ -6,7 +6,7 @@ public class Pest {
 
     public void attack(Crop crop) {
         if (crop != null) {
-            crop.pestsAttack();
+            crop.pestsAttack(1); // damage 1 is default 
         }
     }
 }
